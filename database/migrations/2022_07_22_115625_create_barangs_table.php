@@ -17,7 +17,10 @@ class CreateBarangsTable extends Migration
             $table->id();
             $table->string('kode_barang');
             $table->string('nama_barang');
-            $table->text('deskripsi');
+            $table->text('deskripsi')->nullable();
+            $table->string('nama_customer')->nullable();
+            $table->string('nama_supplier')->nullable();
+            $table->string('satuan')->nullable();
             $table->timestamps();
         });
     }

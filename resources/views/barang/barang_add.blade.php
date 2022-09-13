@@ -35,6 +35,27 @@
                                     <p class="text-danger">{{ $errors->first('deskripsi') }}</p>
                                 @endif
                             </div>
+                            <div class="form-group">
+                                <label>Nama Customer</label>
+                                <input type="text" class="form-control" id="nama_customer" name="nama_customer" maxlength="255" value="{{ old('nama_customer') }}">
+                                @if($errors->has('nama_customer'))
+                                    <p class="text-danger">{{ $errors->first('nama_customer') }}</p>
+                                @endif
+                            </div>
+                            <div class="form-group">
+                                <label>Nama Supplier</label>
+                                <input type="text" class="form-control" id="nama_supplier" name="nama_supplier" maxlength="255" value="{{ old('nama_supplier') }}">
+                                @if($errors->has('nama_supplier'))
+                                    <p class="text-danger">{{ $errors->first('nama_supplier') }}</p>
+                                @endif
+                            </div>
+                            <div class="form-group">
+                                <label>Satuan</label>
+                                <input type="text" class="form-control" id="satuan" name="satuan" maxlength="255" value="{{ old('satuan') }}">
+                                @if($errors->has('satuan'))
+                                    <p class="text-danger">{{ $errors->first('satuan') }}</p>
+                                @endif
+                            </div>
 
                             <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
                         </form>

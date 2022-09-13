@@ -110,6 +110,7 @@
         <!-- JS Libraies -->
         <script src="{{ asset('assets/js/jquery.dataTables.min.js') }}"></script>
         <script src="{{ asset('assets/js/bootstrap-datepicker.min.js') }}"></script>
+        <script src="{{ asset('assets/js/button-inline-loader.js') }}"></script>
 
         <!-- Template JS File -->
         <script src="{{ asset('assets/js/scripts.js') }}"></script>

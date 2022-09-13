@@ -13,16 +13,16 @@
                     </div>
 
                     <div class="card-body">
-                        <form class="form-row">
-                            @csrf
-                            <div class="form-group col-md-8">
-                                <input type="file" class="form-control">
-                            </div>
-                            <div class="form-group col-md-2">
-                                <button class="btn btn-dark btn-block">Import Data</button>
-                            </div>
-                            <div class="form-group col-md-2">
-                                <a href="{{ asset('assets/file/template.xlsx') }}" class="btn btn-outline-info btn-block">Download Template</a>
+                        <form action="/import_barang" method="post" enctype="multipart/form-data" class="form-row" id="form_import">
+                            <div class="input-group mb-3">
+                                <input type="file" name="file" id="file" class="form-control">
+                                <button
+                                    class="btn btn-dark button-loader"
+                                    type="submit"
+                                    id="btn_import"
+                                    data-loading-text="<i class='fa fa-spinner fa-spin'></i> Loading...">Import Data Excel </button>
+                                &nbsp;
+                                <a href="{{ asset('assets/file/template.xlsx') }}" class="btn btn-outline-info">Download Template</a>
                             </div>
                         </form>
                     </div>
@@ -36,14 +36,17 @@
                         <div class="table-responsive">
                             <table class="table table-hover table-striped table-bordered color-table info-table" id="data_table_barang" cellspacing="0" width="100%">
                                 <tr>
-                                    <th width="10%" class="text-center">Kode Barang</th>
-                                    <th width="20%">Nama Barang</th>
-                                    <th width="50%">Deskripsi</th>
-                                    <th width="20%" class="text-center">Action</th>
+                                    <th class="text-center">Kode Barang</th>
+                                    <th>Nama Barang</th>
+                                    <th>Deskripsi</th>
+                                    <th>Customer</th>
+                                    <th>Supplier</th>
+                                    <th>Satuan</th>
+                                    <th class="text-center">Action</th>
                                 </tr>
                                 @if($barang->count() == 0)
                                     <tr>
-                                        <td class="text-center text-danger" colspan="4"><strong>Tidak Ada Data</strong></td>
+                                        <td class="text-center text-danger" colspan="7"><strong>Tidak Ada Data</strong></td>
                                     </tr>
                                 @else
                                     @foreach ($barang as $barangs)
@@ -51,6 +54,9 @@
                                             <td class="text-center">{{ $barangs->kode_barang }}</td>
                                             <td>{{ $barangs->nama_barang }}</td>
                                             <td>{{ $barangs->deskripsi }}</td>
+                                            <td>{{ $barangs->nama_customer }}</td>
+                                            <td>{{ $barangs->nama_supplier }}</td>
+                                            <td>{{ $barangs->satuan }}</td>
                                             <td class="text-center">
                                                 <form action="{{ route('barang.destroy', $barangs->id) }}" method="POST">
                                                     <a class="btn btn-primary btn-sm" href="{{ route('barang.edit', $barangs->id) }}"><i class="fas fa-pencil-alt"></i> Edit</a>
@@ -78,6 +84,41 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
+            });
+
+            $('#btn_import').click(function(event) {
+                event.preventDefault();
+
+                if ($('#file').val() == '') {
+                    alert("Silahkan pilih filenya terlebih dahulu !!!");
+                    return;
+                }
+
+                var form = $('#form_import')[0];
+                var data = new FormData(form);
+
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    url: "/import_barang",
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    beforeSend: function () {
+                        $('.button-loader').button('loading');
+                    },
+                    success: function (data) {
+                        $('.button-loader').button('reset');
+                        location.reload(true);
+                    },
+                    error: function (e) {
+                        alert("Error");
+                    },
+                    complete: function () {
+                        $('.button-loader').button('reset');
+                    },
+                });
             });
         });
     </script>

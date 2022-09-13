@@ -51,13 +51,11 @@ class BarangController extends Controller
         $rules = [
 	        'kode_barang'   => 'required',
 	        'nama_barang'	=> 'required',
-	        'deskripsi'	    => 'required',
 	    ];
 
 	    $messages = [
 	        'kode_barang.required'  => 'Kode Barang wajib diisi',
 	        'nama_barang.required'	=> 'Nama Barang wajib diisi',
-            'deskripsi.required'	=> 'Deskripsi wajib diisi',
 	    ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -109,13 +107,11 @@ class BarangController extends Controller
         $rules = [
 	        'kode_barang'   => 'required',
 	        'nama_barang'	=> 'required',
-	        'deskripsi'	    => 'required',
 	    ];
 
 	    $messages = [
 	        'kode_barang.required'  => 'Kode Barang wajib diisi',
 	        'nama_barang.required'	=> 'Nama Barang wajib diisi',
-            'deskripsi.required'	=> 'Deskripsi wajib diisi',
 	    ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
