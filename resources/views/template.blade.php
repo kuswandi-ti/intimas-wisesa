@@ -90,10 +90,10 @@
 
                 <footer class="main-footer">
                     <div class="footer-left">
-                        Copyright &copy; 2022 <div class="bullet"></div> Develop By <strong>Kuswandi</strong>
+                        Copyright &copy; 2022 <div class="bullet"></div> <strong>PT. Intimas Wisesa</strong>
                     </div>
                     <div class="footer-right">
-                        2.3.0
+                        1.0.1
                     </div>
                 </footer>
             </div>
