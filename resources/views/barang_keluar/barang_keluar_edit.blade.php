@@ -19,6 +19,11 @@
                                     <p>{{ $message }}</p>
                                 </div>
                             @endif
+                            @if($errors->has('error'))
+                                <div class="alert alert-danger">
+                                    {{ $errors->first('error') }}
+                                </div>
+                            @endif
 
                             <div class="form-row">
                                 <input type="hidden" class="form-control" id="id_header" name="id_header" value="{{ $data_header->id }}" readonly>
@@ -45,26 +50,30 @@
                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="form-row">
-                                <div class="form-group col-md-2">
-                                    <label for="no_dokumen">Kode Barang</label>
-                                    <select class="form-control" id="kode_barang" name="kode_barang">
-                                        @foreach ($master_barang as $bm)
-                                            <option data-nama="{{ $bm->nama_barang }}" value="{{ $bm->kode_barang }}">{{ $bm->kode_barang }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-8">
-                                    <label for="nama_barang">Nama Barang</label>
-                                    <input type="text" class="form-control" id="nama_barang" name="nama_barang" readonly>
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <label for="qty">Qty</label>
-                                    <input type="text" class="form-control" id="qty" name="qty">
-                                </div>
-                            </div>
+                            <table class="table table-bordered" id="dynamic-row">
+                                <tr>
+                                    <th width="20%" class="text-center">Kode Barang</th>
+                                    <th width="60%" class="text-center">Nama Barang</th>
+                                    <th width="10%" class="text-center">Qty</th>
+                                    <th width="10%" class="text-center">Action</th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                    <td>
+                                        <button type="button" name="action" id="dynamic-add" class="btn btn-warning btn-block"><i class="fas fa-plus-square"></i></button>
+                                    </td>
+                                </tr>
+                            </table>
 
-                            <a href="#" class="btn btn-icon btn-warning" id="btn_simpan" name="btn_simpan"><i class="fas fa-plus-square"></i> Tambah Detail</a>
+                            <a href="#" class="btn btn-icon btn-warning" id="btn_simpan" name="btn_simpan"><i class="fas fa-save"></i> Simpan Data</a>
 
                             <br/><br/>
 
@@ -74,14 +83,14 @@
                                         <table class="table table-hover table-striped table-bordered color-table info-table" id="data_table_bm_dtl" cellspacing="0" width="100%">
                                             <thead>
                                                 <tr>
-                                                    <th width="0%" class="text-center">ID</th>
+                                                    <th style="display:none;" class="text-center">ID</th>
                                                     <th width="20%" class="text-center">Kode Barang</th>
                                                     <th width="60%">Nama Barang</th>
                                                     <th width="10%" class="text-center">Qty</th>
                                                     <th width="10%" class="text-center">Action</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="body-data">
                                             </tbody>
                                         </table>
                                     </div>
@@ -106,38 +115,57 @@
                 }
             });
 
+            var i = 0;
+            $("#dynamic-add").click(function() {
+                $("#dynamic-row").append(
+                    '<tr>' +
+                        '<td>' +
+                            '<select class="form-control kode_barang" id="kode_barang_'+i+'" name="fields['+i+'][kode_barang]">' +
+                                '@foreach ($master_barang as $bm)' +
+                                    '<option data-nama="{{ $bm->nama_barang }}" value="{{ $bm->kode_barang }}">{{ $bm->kode_barang }}</option>' +
+                                '@endforeach' +
+                            '</select>' +
+                        '</td>' +
+                        '<td>' +
+                            '<input type="text" class="form-control" id="nama_barang_'+i+'" name="fields['+i+'][nama_barang]">' +
+                        '</td>' +
+                        '<td>' +
+                            '<input type="text" class="form-control" id="qty_'+i+'" name="fields['+i+'][qty]">' +
+                        '</td>' +
+                        '<td>' +
+                            '<button type="button" name="action" id="dynamic-remove" class="btn btn-danger btn-block btn-lg"><i class="fas fa-trash"></i></button>' +
+                        '</td>' +
+                    '</tr>'
+                );
+                i++;
+            });
+
+            $(document).on('click', '#dynamic-remove', function() {
+                $(this).parents('tr').remove();
+            });
+
             load_detail();
 
             $('.datepicker').datepicker({
                 format: 'dd/mm/yyyy',
             });
 
-            $('#kode_barang').on('change', function() {
-                const nama = $('#kode_barang option:selected').data('nama');
-                $('[name=nama_barang]').val(nama);
-
-                $('[name=qty]').val(1);
-                $('[name=qty]').focus();
+            /*
+            https://stackoverflow.com/questions/33236798/jquery-get-selected-value-from-dynamically-generated-dropdown
+             */
+            $(document).on('change', '.kode_barang', function() {
+                var i = 0;
+                $.each($(".kode_barang option:selected"), function(){
+                    const nama = $('#kode_barang_'+i+' option:selected').data('nama');
+                    $('#nama_barang_'+i).val(nama);
+                    i++;
+                });
             });
 
             $("#btn_simpan").click(function(e) {
                 e.preventDefault();
 
-                var id_header   = $("input[name=id_header]").val();
-                var kode_barang = $("input[name=kode_barang]").val();
-                var nama_barang = $("input[name=nama_barang]").val();
-                var qty         = $("input[name=qty]").val();
                 var url         = '{{ url('barangkeluar/store_dtl') }}';
-
-                if (nama_barang.length === 0) {
-                    alert('Barang harus dipilih !!!');
-                    return;
-                }
-
-                if (qty.length === 0) {
-                    alert('Qty harus diisi !!!');
-                    return;
-                }
 
                 $.ajax({
                     url : url,
@@ -188,7 +216,7 @@
                         'id_header' : id_header
                     },
                     success : function(data) {
-                        $('tbody').html(data);
+                        $('#body-data').html(data);
                     }
                 });
             }

@@ -34,40 +34,44 @@
                             </div>
                         @endif
                         <div class="table-responsive">
-                            <table class="table table-hover table-striped table-bordered color-table info-table" id="data_table_barang" cellspacing="0" width="100%">
-                                <tr>
-                                    <th class="text-center">Kode Barang</th>
-                                    <th>Nama Barang</th>
-                                    <th>Deskripsi</th>
-                                    <th>Customer</th>
-                                    <th>Supplier</th>
-                                    <th>Satuan</th>
-                                    <th class="text-center">Action</th>
-                                </tr>
-                                @if($barang->count() == 0)
+                            <table class="table table-hover table-striped table-bordered color-table info-table display responsive nowrap" id="data_table_barang" width="100%">
+                                <thead>
                                     <tr>
-                                        <td class="text-center text-danger" colspan="7"><strong>Tidak Ada Data</strong></td>
+                                        <th class="text-center">Kode Barang</th>
+                                        <th>Nama Barang</th>
+                                        <th>Deskripsi</th>
+                                        <th>Customer</th>
+                                        <th>Supplier</th>
+                                        <th>Satuan</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
-                                @else
-                                    @foreach ($barang as $barangs)
+                                </thead>
+                                <tbody>
+                                    @if($barang->count() == 0)
                                         <tr>
-                                            <td class="text-center">{{ $barangs->kode_barang }}</td>
-                                            <td>{{ $barangs->nama_barang }}</td>
-                                            <td>{{ $barangs->deskripsi }}</td>
-                                            <td>{{ $barangs->nama_customer }}</td>
-                                            <td>{{ $barangs->nama_supplier }}</td>
-                                            <td>{{ $barangs->satuan }}</td>
-                                            <td class="text-center">
-                                                <form action="{{ route('barang.destroy', $barangs->id) }}" method="POST">
-                                                    <a class="btn btn-primary btn-sm" href="{{ route('barang.edit', $barangs->id) }}"><i class="fas fa-pencil-alt"></i> Edit</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i class="fas fa-trash-alt"></i> Delete</button>
-                                                </form>
-                                            </td>
+                                            <td class="text-center text-danger" colspan="7"><strong>Tidak Ada Data</strong></td>
                                         </tr>
-                                    @endforeach
-                                @endif
+                                    @else
+                                        @foreach ($barang as $barangs)
+                                            <tr>
+                                                <td class="text-center">{{ $barangs->kode_barang }}</td>
+                                                <td>{{ $barangs->nama_barang }}</td>
+                                                <td>{{ $barangs->deskripsi }}</td>
+                                                <td>{{ $barangs->nama_customer }}</td>
+                                                <td>{{ $barangs->nama_supplier }}</td>
+                                                <td>{{ $barangs->satuan }}</td>
+                                                <td class="text-center">
+                                                    <form action="{{ route('barang.destroy', $barangs->id) }}" method="POST">
+                                                        <a class="btn btn-primary btn-sm" href="{{ route('barang.edit', $barangs->id) }}"><i class="fas fa-pencil-alt"></i> Edit</a>
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i class="fas fa-trash-alt"></i> Delete</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -84,6 +88,11 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
+            });
+
+            $('#data_table_barang').DataTable({
+                rowReorder: true,
+                responsive: true
             });
 
             $('#btn_import').click(function(event) {

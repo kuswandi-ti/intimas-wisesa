@@ -22,8 +22,8 @@ class LoginController extends Controller
 	    ];
 
 	    $messages = [
-	        'name.required'		=> 'Username wajib diisi',
-	        'password.required'	=> 'Password wajib diisi',
+	        'name.required'		=> 'Username harus diisi',
+	        'password.required'	=> 'Password harus diisi',
 	    ];
 
 	    $validator = Validator::make($request->all(), $rules, $messages);

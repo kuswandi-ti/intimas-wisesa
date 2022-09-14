@@ -112,7 +112,7 @@
                     { "className": "text-right", "targets": [5, 6, 7, 8] },
                 ],
                 'autoWidth': false,
-                'responsive': true
+                'responsive': true,
             });
         }
 

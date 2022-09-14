@@ -40,7 +40,7 @@ class BarangKeluarController extends Controller
     {
         $barang_keluar_hdr              = new BarangkeluarHdr();
 
-        $doc_no                         = Helper::create_doc_no('BK', date('m'), date('Y'), 'BARANG_KELUAR');
+        $doc_no                         = Helper::create_doc_no('SJ', date('m'), date('Y'), 'BARANG_KELUAR');
 
         $barang_keluar_hdr->no_dokumen  = $doc_no;
         $barang_keluar_hdr->tgl_dokumen = $request->tgl_dokumen;
@@ -98,18 +98,23 @@ class BarangKeluarController extends Controller
 
     public function store_dtl(Request $request)
     {
-        DB::table('barang_keluar_dtl')->insert([
-            'id_header'     => $request->id_header,
-            'kode_barang'   => $request->kode_barang,
-            'qty'           => $request->qty,
-            'created_at'    => new DateTime(),
-            'updated_at'    => new DateTime(),
-        ]);
+        $data = [];
+        for($i = 0; $i < count($request->fields); $i++) {
+            $data[] = array(
+                'id_header'     => $request->id_header,
+                'kode_barang'   => $request->fields[$i]['kode_barang'],
+                'qty'           => $request->fields[$i]['qty'],
+                'created_at'    => new DateTime(),
+                'updated_at'    => new DateTime(),
+            );
+        }
+
+        DB::table('barang_keluar_dtl')->insert($data);
 
         return response()->json(
             [
                 'success' => true,
-                'message' => 'Data berhasil disimpan'
+                'message' => $data
             ]
         );
     }
@@ -126,7 +131,7 @@ class BarangKeluarController extends Controller
                 foreach ($data as $key => $row) {
                     $id = $row->id;
                     $output.="<tr>".
-                                "<td class='text-center'>".$row->id."</td>".
+                                "<td style='display:none;' class='text-center'>".$row->id."</td>".
                                 "<td class='text-center'>".$row->kode_barang."</td>".
                                 "<td>".$row->nama_barang."</td>".
                                 "<td class='text-center'>".$row->qty."</td>".

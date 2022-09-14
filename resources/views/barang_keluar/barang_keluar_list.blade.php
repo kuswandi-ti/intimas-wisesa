@@ -18,23 +18,34 @@
                             </div>
                         @endif
                         <div class="table-responsive">
-                            <table class="table table-hover table-striped table-bordered color-table info-table" id="data_table_barang" cellspacing="0" width="100%">
-                                <tr>
-                                    <th width="10%" class="text-center">No. Dokumen</th>
-                                    <th width="20%" class="text-center">Tgl. Dokumen (yyyy-mm-dd)</th>
-                                    <th width="50%">Keterangan</th>
-                                    <th width="20%" class="text-center">Action</th>
-                                </tr>
-                                @foreach ($barang_keluar_hdr as $bk_hdr)
+                            <table class="table table-hover table-striped table-bordered color-table info-table display responsive nowrap" id="data_barang_keluar" cellspacing="0" width="100%">
+                                <thead>
                                     <tr>
-                                        <td class="text-center">{{ $bk_hdr->no_dokumen }}</td>
-                                        <td class="text-center">{{ $bk_hdr->tgl_dokumen }}</td>
-                                        <td>{{ $bk_hdr->keterangan }}</td>
-                                        <td class="text-center">
-                                            <a class="btn btn-primary btn-sm" href="{{ route('barangkeluar_edit', $bk_hdr->id) }}"><i class="fas fa-pencil-alt"></i> Edit</a>
-                                        </td>
+                                        <th width="10%" class="text-center">No. Dokumen</th>
+                                        <th width="20%" class="text-center">Tgl. Dokumen (yyyy-mm-dd)</th>
+                                        <th width="50%">Keterangan</th>
+                                        <th width="20%" class="text-center">Action</th>
                                     </tr>
-                                @endforeach
+                                </thead>
+                                <tbody>
+                                    @if ($barang_keluar_hdr->count() == 0)
+                                        <tr>
+                                            <td class="text-center text-danger" colspan="4"><strong>Tidak Ada Data</strong></td>
+                                        </tr>
+                                    @else
+                                        @foreach ($barang_keluar_hdr as $bk_hdr)
+                                            <tr>
+                                                <td class="text-center">{{ $bk_hdr->no_dokumen }}</td>
+                                                <td class="text-center">{{ $bk_hdr->tgl_dokumen }}</td>
+                                                <td>{{ $bk_hdr->keterangan }}</td>
+                                                <td class="text-center">
+                                                    <a class="btn btn-primary btn-sm" href="{{ route('barangkeluar_edit', $bk_hdr->id) }}"><i class="fas fa-pencil-alt"></i> Edit</a>
+                                                    <a class="btn btn-outline-danger btn-sm" href="#"><i class="fas fa-print"></i> Print</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -51,6 +62,11 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
+            });
+
+            $('#data_barang_keluar').DataTable({
+                rowReorder: true,
+                responsive: true
             });
         });
     </script>

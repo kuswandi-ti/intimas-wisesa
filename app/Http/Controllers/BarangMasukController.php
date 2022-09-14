@@ -40,7 +40,7 @@ class BarangMasukController extends Controller
     {
         $barang_masuk_hdr               = new BarangMasukHdr();
 
-        $doc_no                         = Helper::create_doc_no('BM', date('m'), date('Y'), 'BARANG_MASUK');
+        $doc_no                         = Helper::create_doc_no('PO', date('m'), date('Y'), 'BARANG_MASUK');
 
         $barang_masuk_hdr->no_dokumen   = $doc_no;
         $barang_masuk_hdr->tgl_dokumen  = $request->tgl_dokumen;

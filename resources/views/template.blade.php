@@ -40,7 +40,7 @@
                                 <a href="#" class="dropdown-item has-icon text-danger">
                                     <form action="{{ route('logout') }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Logout</button>
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin akan logout?')">Logout</button>
                                     </form>
                                 </a>
                             </div>
@@ -64,8 +64,8 @@
                             <li><a class="nav-link" href="{{ route('barang.index') }}"><i class="fas fa-th-large"></i> <span>Barang</span></a></li>
 
                             <li class="menu-header">Transaksi</li>
-                            <li><a class="nav-link" href="{{ route('barangmasuk_index') }}"><i class="fas fa-shopping-basket"></i> <span>Barang Masuk</span></a></li>
-                            <li><a class="nav-link" href="{{ route('barangkeluar_index') }}"><i class="fas fa-share-square"></i> <span>Barang Keluar</span></a></li>
+                            <li><a class="nav-link" href="{{ route('barangmasuk_index') }}"><i class="fas fa-shopping-basket"></i> <span>Barang Masuk (PO)</span></a></li>
+                            <li><a class="nav-link" href="{{ route('barangkeluar_index') }}"><i class="fas fa-share-square"></i> <span>Barang Keluar (SJ)</span></a></li>
 
                             <li class="menu-header">Report</li>
                             <li><a class="nav-link" href="{{ route('stock_index') }}"><i class="fas fa-layer-group"></i> <span>Stok</span></a></li>
