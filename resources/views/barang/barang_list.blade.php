@@ -47,30 +47,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if($barang->count() == 0)
+                                    @foreach ($barang as $barangs)
                                         <tr>
-                                            <td class="text-center text-danger" colspan="7"><strong>Tidak Ada Data</strong></td>
+                                            <td class="text-center">{{ $barangs->kode_barang }}</td>
+                                            <td>{{ $barangs->nama_barang }}</td>
+                                            <td>{{ $barangs->deskripsi }}</td>
+                                            <td>{{ $barangs->nama_customer }}</td>
+                                            <td>{{ $barangs->nama_supplier }}</td>
+                                            <td>{{ $barangs->satuan }}</td>
+                                            <td class="text-center">
+                                                <form action="{{ route('barang.destroy', $barangs->id) }}" method="POST">
+                                                    <a class="btn btn-primary btn-sm" href="{{ route('barang.edit', $barangs->id) }}"><i class="fas fa-pencil-alt"></i> Edit</a>
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i class="fas fa-trash-alt"></i> Delete</button>
+                                                </form>
+                                            </td>
                                         </tr>
-                                    @else
-                                        @foreach ($barang as $barangs)
-                                            <tr>
-                                                <td class="text-center">{{ $barangs->kode_barang }}</td>
-                                                <td>{{ $barangs->nama_barang }}</td>
-                                                <td>{{ $barangs->deskripsi }}</td>
-                                                <td>{{ $barangs->nama_customer }}</td>
-                                                <td>{{ $barangs->nama_supplier }}</td>
-                                                <td>{{ $barangs->satuan }}</td>
-                                                <td class="text-center">
-                                                    <form action="{{ route('barang.destroy', $barangs->id) }}" method="POST">
-                                                        <a class="btn btn-primary btn-sm" href="{{ route('barang.edit', $barangs->id) }}"><i class="fas fa-pencil-alt"></i> Edit</a>
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i class="fas fa-trash-alt"></i> Delete</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    @endif
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

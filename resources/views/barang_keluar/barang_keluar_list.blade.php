@@ -28,23 +28,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if ($barang_keluar_hdr->count() == 0)
+                                    @foreach ($barang_keluar_hdr as $bk_hdr)
                                         <tr>
-                                            <td class="text-center text-danger" colspan="4"><strong>Tidak Ada Data</strong></td>
+                                            <td class="text-center">{{ $bk_hdr->no_dokumen }}</td>
+                                            <td class="text-center">{{ $bk_hdr->tgl_dokumen }}</td>
+                                            <td>{{ $bk_hdr->keterangan }}</td>
+                                            <td class="text-center">
+                                                <a class="btn btn-primary btn-sm" href="{{ route('barangkeluar_edit', $bk_hdr->id) }}"><i class="fas fa-pencil-alt"></i> Edit</a>
+                                                <a class="btn btn-outline-danger btn-sm" href="#"><i class="fas fa-print"></i> Print</a>
+                                            </td>
                                         </tr>
-                                    @else
-                                        @foreach ($barang_keluar_hdr as $bk_hdr)
-                                            <tr>
-                                                <td class="text-center">{{ $bk_hdr->no_dokumen }}</td>
-                                                <td class="text-center">{{ $bk_hdr->tgl_dokumen }}</td>
-                                                <td>{{ $bk_hdr->keterangan }}</td>
-                                                <td class="text-center">
-                                                    <a class="btn btn-primary btn-sm" href="{{ route('barangkeluar_edit', $bk_hdr->id) }}"><i class="fas fa-pencil-alt"></i> Edit</a>
-                                                    <a class="btn btn-outline-danger btn-sm" href="#"><i class="fas fa-print"></i> Print</a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    @endif
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
