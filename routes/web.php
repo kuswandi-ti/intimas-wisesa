@@ -7,6 +7,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\BarangKeluarController;
 use App\Http\Controllers\StockController;
@@ -35,7 +37,6 @@ Route::post('login', [LoginController::class, 'login']);
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => ['auth']], function () {
-
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
     Route::resource('barang', BarangController::class);
@@ -43,6 +44,8 @@ Route::group(['middleware' => ['auth']], function () {
         Excel::import(new BarangImport, request()->file('file'));
         return back();
     });
+    Route::resource('customer', CustomerController::class);
+    Route::resource('supplier', SupplierController::class);
 
     Route::get('/barangmasuk', [BarangMasukController::class, 'index'])->name('barangmasuk_index');
     Route::get('/barangmasuk/create_hdr', [BarangMasukController::class, 'create_hdr'])->name('barangmasuk_createhdr');
