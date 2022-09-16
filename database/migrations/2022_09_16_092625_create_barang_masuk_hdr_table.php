@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBarangkeluarhdrTable extends Migration
+class CreateBarangMasukHdrTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateBarangkeluarhdrTable extends Migration
      */
     public function up()
     {
-        Schema::create('barang_keluar_hdr', function (Blueprint $table) {
+        Schema::create('barang_masuk_hdr', function (Blueprint $table) {
             $table->id();
             $table->string('no_dokumen');
             $table->date('tgl_dokumen')->nullable();
@@ -29,6 +29,6 @@ class CreateBarangkeluarhdrTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('barang_keluar_hdr');
+        Schema::dropIfExists('barang_masuk_hdr');
     }
 }

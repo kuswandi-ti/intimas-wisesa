@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBarangkeluardtlTable extends Migration
+class CreateBarangMasukDtlTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateBarangkeluardtlTable extends Migration
      */
     public function up()
     {
-        Schema::create('barang_keluar_dtl', function (Blueprint $table) {
+        Schema::create('barang_masuk_dtl', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_header');
-            $table->string('kode_barang');
+            $table->text('deskripsi_barang')->nullable();
             $table->integer('qty');
             $table->timestamps();
         });
@@ -29,6 +28,6 @@ class CreateBarangkeluardtlTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('barang_keluar_dtl');
+        Schema::dropIfExists('barang_masuk_dtl');
     }
 }

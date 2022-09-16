@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBarangmasukdtlTable extends Migration
+class CreateBarangKeluarDtlTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateBarangmasukdtlTable extends Migration
      */
     public function up()
     {
-        Schema::create('barang_masuk_dtl', function (Blueprint $table) {
+        Schema::create('barang_keluar_dtl', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_header');
-            $table->string('kode_barang');
+            $table->foreign('header_id')->references('id')->on('barang_keluar_hdr');
+            $table->foreign('barang_id')->references('id')->on('barang');
+            $table->text('deskripsi_barang')->nullable();
             $table->integer('qty');
             $table->timestamps();
         });
@@ -29,6 +30,6 @@ class CreateBarangmasukdtlTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('barang_masuk_dtl');
+        Schema::dropIfExists('barang_keluar_dtl');
     }
 }
