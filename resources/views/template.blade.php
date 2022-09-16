@@ -62,8 +62,6 @@
 
                             <li class="menu-header">Master</li>
                             <li><a class="nav-link" href="{{ route('barang.index') }}"><i class="fas fa-th-large"></i> <span>Barang</span></a></li>
-                            <li><a class="nav-link" href="{{ route('customer.index') }}"><i class="fas fa-users"></i> <span>Customer</span></a></li>
-                            <li><a class="nav-link" href="{{ route('supplier.index') }}"><i class="fas fa-paper-plane"></i> <span>Supplier</span></a></li>
 
                             <li class="menu-header">Transaksi</li>
                             <li><a class="nav-link" href="{{ route('barangmasuk_index') }}"><i class="fas fa-shopping-basket"></i> <span>Barang Masuk (PO)</span></a></li>
