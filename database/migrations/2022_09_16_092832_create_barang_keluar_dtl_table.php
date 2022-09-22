@@ -15,11 +15,16 @@ class CreateBarangKeluarDtlTable extends Migration
     {
         Schema::create('barang_keluar_dtl', function (Blueprint $table) {
             $table->id();
-            $table->foreign('header_id')->references('id')->on('barang_keluar_hdr');
-            $table->foreign('barang_id')->references('id')->on('barang');
+            $table->bigInteger('header_id')->unsigned()->nullable();
+            $table->bigInteger('barang_id')->unsigned()->nullable();
+            $table->string('kode_barang');
+            $table->string('nama_barang');
+            $table->string('satuan');
             $table->text('deskripsi_barang')->nullable();
             $table->integer('qty');
             $table->timestamps();
+            $table->foreign('header_id')->references('id')->on('barang_keluar_hdr');
+            $table->foreign('barang_id')->references('id')->on('barang');
         });
     }
 

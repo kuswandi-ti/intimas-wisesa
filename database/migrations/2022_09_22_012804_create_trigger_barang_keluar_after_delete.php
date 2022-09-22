@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBarangKeluarAfterDeleteTrigger extends Migration
+class CreateTriggerBarangKeluarAfterDelete extends Migration
 {
     /**
      * Run the migrations.
@@ -44,15 +44,15 @@ class CreateBarangKeluarAfterDeleteTrigger extends Migration
 
                 IF EXISTS (SELECT `no_dokumen`, `tgl_dokumen`
                            FROM `barang_keluar_hdr`
-                           WHERE `id` = OLD.id_header
+                           WHERE `id` = OLD.header_id
                            LIMIT 1) THEN
                     SET v_no_dokumen = (SELECT `no_dokumen`
                                         FROM `barang_keluar_hdr`
-                                        WHERE `id` = OLD.id_header
+                                        WHERE `id` = OLD.header_id
                                         LIMIT 1);
                     SET v_tgl_dokumen = (SELECT `tgl_dokumen`
                                         FROM `barang_keluar_hdr`
-                                        WHERE `id` = OLD.id_header
+                                        WHERE `id` = OLD.header_id
                                         LIMIT 1);
                 ELSE
                     SET v_no_dokumen = NULL;

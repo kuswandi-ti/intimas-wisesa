@@ -16,9 +16,14 @@ class CreateBarangKeluarHdrTable extends Migration
         Schema::create('barang_keluar_hdr', function (Blueprint $table) {
             $table->id();
             $table->string('no_dokumen');
-            $table->date('tgl_dokumen')->nullable();
+            $table->date('tgl_dokumen');
+            $table->bigInteger('customer_id')->unsigned()->nullable();
+            $table->text('alamat')->nullable();
+            $table->string('nama_kontak')->nullable();
+            $table->string('nomor_kontak')->nullable();
             $table->text('keterangan')->nullable();
             $table->timestamps();
+            $table->foreign('customer_id')->references('id')->on('customer');
         });
     }
 
