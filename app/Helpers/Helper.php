@@ -75,6 +75,8 @@ class Helper {
         $prefix = '';
         if (strtolower($transaction_description) == 'customer') {
             $prefix = 'CUS';
+        } else if (strtolower($transaction_description) == 'supplier') {
+            $prefix = 'SUP';
         }
         return $prefix . substr('0000'.$curr_doc_number, -4);
     }

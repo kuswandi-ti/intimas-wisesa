@@ -61,7 +61,7 @@ class BarangController extends Controller
         $validator = Validator::make($request->all(), $rules, $messages);
 
 	    if($validator->fails()) {
-	        return redirect()->back()->withErrors($validator)->withInput($request->all);
+	        return redirect()->back()->withErrors($validator)->withInput($request->all());
 	    }
 
         Barang::create($request->all());
@@ -117,7 +117,7 @@ class BarangController extends Controller
         $validator = Validator::make($request->all(), $rules, $messages);
 
 	    if($validator->fails()) {
-	        return redirect()->back()->withErrors($validator)->withInput($request->all);
+	        return redirect()->back()->withErrors($validator)->withInput($request->all());
 	    }
 
         $barang->update($request->all());

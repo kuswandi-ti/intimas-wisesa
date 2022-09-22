@@ -42,7 +42,7 @@
                                         <th>Deskripsi</th>
                                         <th>Customer</th>
                                         <th>Supplier</th>
-                                        <th>Satuan</th>
+                                        <th class="text-center">Satuan</th>
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -54,7 +54,7 @@
                                                 <td>{{ $row->deskripsi }}</td>
                                                 <td>{{ $row->nama_customer }}</td>
                                                 <td>{{ $row->nama_supplier }}</td>
-                                                <td>{{ $row->satuan }}</td>
+                                                <td class="text-center">{{ $row->satuan }}</td>
                                                 <td class="text-center">
                                                     <form action="{{ route('barang.destroy', $row->id) }}" method="POST">
                                                         <a class="btn btn-primary btn-sm" href="{{ route('barang.edit', $row->id) }}"><i class="fas fa-pencil-alt"></i> Edit</a>
