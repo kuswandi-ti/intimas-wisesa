@@ -47,22 +47,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if($barang->count() == 0)
-                                        <tr>
-                                            <td class="text-center text-danger" colspan="7"><strong>Tidak Ada Data</strong></td>
-                                        </tr>
-                                    @else
-                                        @foreach ($barang as $barangs)
+                                        @foreach ($barang as $row)
                                             <tr>
-                                                <td class="text-center">{{ $barangs->kode_barang }}</td>
-                                                <td>{{ $barangs->nama_barang }}</td>
-                                                <td>{{ $barangs->deskripsi }}</td>
-                                                <td>{{ $barangs->nama_customer }}</td>
-                                                <td>{{ $barangs->nama_supplier }}</td>
-                                                <td>{{ $barangs->satuan }}</td>
+                                                <td class="text-center">{{ $row->kode_barang }}</td>
+                                                <td>{{ $row->nama_barang }}</td>
+                                                <td>{{ $row->deskripsi }}</td>
+                                                <td>{{ $row->nama_customer }}</td>
+                                                <td>{{ $row->nama_supplier }}</td>
+                                                <td>{{ $row->satuan }}</td>
                                                 <td class="text-center">
-                                                    <form action="{{ route('barang.destroy', $barangs->id) }}" method="POST">
-                                                        <a class="btn btn-primary btn-sm" href="{{ route('barang.edit', $barangs->id) }}"><i class="fas fa-pencil-alt"></i> Edit</a>
+                                                    <form action="{{ route('barang.destroy', $row->id) }}" method="POST">
+                                                        <a class="btn btn-primary btn-sm" href="{{ route('barang.edit', $row->id) }}"><i class="fas fa-pencil-alt"></i> Edit</a>
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')"><i class="fas fa-trash-alt"></i> Delete</button>
@@ -70,7 +65,6 @@
                                                 </td>
                                             </tr>
                                         @endforeach
-                                    @endif
                                 </tbody>
                             </table>
                         </div>

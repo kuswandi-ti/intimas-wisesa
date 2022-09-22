@@ -54,8 +54,8 @@ class BarangController extends Controller
 	    ];
 
 	    $messages = [
-	        'kode_barang.required'  => 'Kode Barang wajib diisi',
-	        'nama_barang.required'	=> 'Nama Barang wajib diisi',
+	        'kode_barang.required'  => 'Kode Barang harus diisi',
+	        'nama_barang.required'	=> 'Nama Barang harus diisi',
 	    ];
 
         $validator = Validator::make($request->all(), $rules, $messages);

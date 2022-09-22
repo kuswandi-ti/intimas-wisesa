@@ -44,4 +44,38 @@ class Helper {
         }
         return $transaction_name.'-'.substr('00'.$transaction_year, -2).substr('00'.$transaction_month, -2).'-'.substr('0000'.$curr_doc_number, -4); // XX-YYMM-XXXX
     }
+
+    public static function create_code($transaction_description)
+    {
+        $count = DB::table('doc_counter')
+            ->where([
+                ['transaction_description', $transaction_description]
+            ])
+            ->count();
+        if ($count == 0) {
+            $curr_doc_number = 1;
+            DB::table('doc_counter')->insert([
+                [
+                    'transaction_description'   => $transaction_description,
+                    'transaction_current_docno' => $curr_doc_number
+                ]
+            ]);
+        } else {
+            $current_no = DB::table('doc_counter')
+                ->select('transaction_current_docno')
+                ->where([['transaction_description', $transaction_description]])
+                ->value('transaction_current_docno');
+            $curr_doc_number = $current_no + 1;
+            DB::table('doc_counter')
+                ->where([['transaction_description', $transaction_description]])
+                ->update(['transaction_current_docno' => $curr_doc_number]
+                );
+        }
+
+        $prefix = '';
+        if (strtolower($transaction_description) == 'customer') {
+            $prefix = 'CUS';
+        }
+        return $prefix . substr('0000'.$curr_doc_number, -4);
+    }
 }

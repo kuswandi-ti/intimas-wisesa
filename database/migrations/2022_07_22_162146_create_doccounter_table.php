@@ -14,11 +14,11 @@ class CreateDoccounterTable extends Migration
     public function up()
     {
         Schema::create('doc_counter', function (Blueprint $table) {
-            $table->string('transaction_name');
-            $table->integer('transaction_year');
-            $table->integer('transaction_month');
-            $table->integer('transaction_current_docno');
-            $table->string('transaction_description');
+            $table->string('transaction_name')->nullable();
+            $table->integer('transaction_year')->nullable();
+            $table->integer('transaction_month')->nullable();
+            $table->integer('transaction_current_docno')->nullable();
+            $table->string('transaction_description')->nullable();
         });
     }
 

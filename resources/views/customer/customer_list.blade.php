@@ -28,22 +28,17 @@
                                         <th>Alamat</th>
                                         <th class="text-center">Nama Kontak</th>
                                         <th class="text-center">Nomor Kontak</th>
-                                        <th>Action</th>
+                                        <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @if($customer->count() == 0)
-                                    <tr>
-                                        <td class="text-center text-danger" colspan="6"><strong>Tidak Ada Data</strong></td>
-                                    </tr>
-                                @else
                                     @foreach ($customer as $row)
                                         <tr>
                                             <td class="text-center">{{ $row->kode_customer }}</td>
                                             <td>{{ $row->nama_customer }}</td>
                                             <td>{{ $row->alamat }}</td>
-                                            <td>{{ $row->nama_kontak }}</td>
-                                            <td>{{ $row->nomor_kontak }}</td>
+                                            <td class="text-center">{{ $row->nama_kontak }}</td>
+                                            <td class="text-center">{{ $row->nomor_kontak }}</td>
                                             <td class="text-center">
                                                 <form action="{{ route('customer.destroy', $row->id) }}" method="POST">
                                                     <a class="btn btn-primary btn-sm" href="{{ route('customer.edit', $row->id) }}"><i class="fas fa-pencil-alt"></i> Edit</a>
@@ -54,7 +49,6 @@
                                             </td>
                                         </tr>
                                     @endforeach
-                                @endif
                                 </tbody>
                             </table>
                         </div>
