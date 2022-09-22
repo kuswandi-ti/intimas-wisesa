@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -13,7 +14,13 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        $page_title = 'List Data Master Customer';
+        $page_desc  = 'Halaman List Data Master Customer';
+        $breadcrumb = 'Master Customer';
+
+        $customer = Customer::all();
+
+        return view('customer.customer_list', compact('page_title', 'page_desc', 'breadcrumb', 'customer'));
     }
 
     /**

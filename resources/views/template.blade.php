@@ -12,7 +12,8 @@
         <link rel="stylesheet" href="{{ asset('assets/css/all.css') }}">
 
         <!-- CSS Libraries -->
-        <link rel="stylesheet" href="{{ asset('assets/css/jquery.dataTables.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap4.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-datepicker3.min.css') }}">
 
         <!-- Template CSS -->
@@ -62,6 +63,8 @@
 
                             <li class="menu-header">Master</li>
                             <li><a class="nav-link" href="{{ route('barang.index') }}"><i class="fas fa-th-large"></i> <span>Barang</span></a></li>
+                            <li><a class="nav-link" href="{{ route('customer.index') }}"><i class="fas fa-users"></i> <span>Customer</span></a></li>
+                            <li><a class="nav-link" href="{{ route('supplier.index') }}"><i class="fas fa-id-card"></i> <span>Supplier</span></a></li>
 
                             <li class="menu-header">Transaksi</li>
                             <li><a class="nav-link" href="{{ route('barangmasuk_index') }}"><i class="fas fa-shopping-basket"></i> <span>Barang Masuk (PO)</span></a></li>
@@ -108,7 +111,9 @@
         <script src="{{ asset('assets/js/stisla.js') }}"></script>
 
         <!-- JS Libraies -->
-        <script src="{{ asset('assets/js/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('assets/js/dataTables.bootstrap4.min.js') }}"></script>
+        <script src="{{ asset('assets/js/datatables.min.js') }}"></script>
+        <script src="{{ asset('assets/js/dataTables.select.min.js') }}"></script>
         <script src="{{ asset('assets/js/bootstrap-datepicker.min.js') }}"></script>
         <script src="{{ asset('assets/js/button-inline-loader.js') }}"></script>
 
